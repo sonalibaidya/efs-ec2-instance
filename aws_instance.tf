@@ -1,34 +1,11 @@
-resource "aws_instance" "good-morning" {
-
-  ami = "ami-5b673c34" #Red Hat RHEL V7
-
-  instance_type = "t3.micro"
-
-  availability_zone = "us-east-1"
-
-  security_groups = [aws_security_group.morning-ssh-http.name]
-
-  key_name = "zoomkey"
-
-  user_data = <<-EOF
-
-               #! /bin/bash
-
-               sudo yum install httpd -y
-
-               sudo systemctl start httpd
-
-               sudo systemctl enable httpd
-
-               echo "<h1>Sample Webserver" | sudo tee /var/www/html/index.html
-
- EOF
-
-
+resource "aws_instance" "testinstance" {
+  ami                         = "ami-087c17d1fe0178315"
+  instance_type               = "t2.micro"
+  subnet_id                   = aws_subnet.subnet[0].id
+  associate_public_ip_address = true
+  vpc_security_group_ids      = [aws_security_group.ec2.id]
+  key_name                    = "efs"
   tags = {
-
-    Name = "webserver"
-
+    Name = "testinstance"
   }
-
 }
