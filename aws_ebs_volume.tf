@@ -16,7 +16,7 @@ resource "aws_efs_mount_target" "efs-mt" {
   security_groups = [aws_security_group.efs.id]
 }
 
-resource "aws_ebs_volume" "data-vol" {
+/* resource "aws_ebs_volume" "data-vol" {
   availability_zone = "us-east-1a"
   size              = 1
   tags = {
@@ -28,4 +28,4 @@ resource "aws_volume_attachment" "good-morning-vol" {
   device_name = "/dev/sdc"
   volume_id   = aws_ebs_volume.data-vol.id
   instance_id = aws_instance.testinstance.id
-}
+} */
