@@ -5,6 +5,17 @@ resource "aws_instance" "testinstance" {
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.ec2.id]
   key_name                    = "new-eks"
+  user_data                   = <<-EOF
+               #! /bin/bash
+
+               sudo yum install httpd -y
+
+               sudo systemctl start httpd
+
+               sudo systemctl enable httpd
+
+               echo "<h1>Sample Webserver" | sudo tee /var/www/html/index.html
+EOF  
   tags = {
     Name = "testinstance"
   }
