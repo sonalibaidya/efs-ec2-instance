@@ -1,3 +1,5 @@
+#https://cloud.netapp.com/blog/aws-cvo-blg-terraform-ebs-efs-automate-ebs-volumes-efs-filesystems
+
 resource "aws_ebs_volume" "data-vol" {
 
   availability_zone = "us-east-1"
@@ -50,7 +52,7 @@ resource "aws_efs_mount_target" "example-efs-mt" {
 
   subnet_id = aws_subnet.subnet-efs.id
 
-  security_groups = ["${aws_security_group.ingress-efs.id}"]
+  security_groups = [aws_security_group.ingress-efs.id]
 
 }
 
@@ -93,7 +95,7 @@ resource "aws_security_group" "ingress-efs-test" {
 
   ingress {
 
-    security_groups = ["${aws_security_group.ingress-test-env.id}"]
+    security_groups = [aws_security_group.ingress-test-env.id]
 
     from_port = 2049
 
@@ -107,7 +109,7 @@ resource "aws_security_group" "ingress-efs-test" {
 
   egress {
 
-    security_groups = ["${aws_security_group.ingress-test-env.id}"]
+    security_groups = [aws_security_group.ingress-test-env.id]
 
     from_port = 0
 
