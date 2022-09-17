@@ -24,8 +24,9 @@ resource "null_resource" "configure_nfs" {
   connection {
     type        = "ssh"
     user        = "ec2-user"
-    private_key = module.key_pair.private_key_pem
+    private_key = file("/root/id_rsa.pub")
     host        = aws_instance.testinstance.public_ip
+    timeout     = "20s"
   }
 
 
