@@ -8,6 +8,7 @@ resource "aws_key_pair" "deployer" {
   key_name   = "efs-key"
   public_key = tls_private_key.my_key.public_key_openssh
 }
+ 
  */
 
 
@@ -31,7 +32,7 @@ resource "aws_instance" "testinstance" {
   subnet_id                   = aws_subnet.subnet[0].id
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.ec2.id]
-  key_name                    = module.key_pair.key_name
+  key_name                    = "deployer-three"
   tags = {
     Name = "testinstance"
   }
