@@ -63,7 +63,7 @@ resource "aws_vpc" "test-env" {
 
   enable_dns_support = true
 
-  tags {
+  tags = {
 
     Name = "test-env"
 
