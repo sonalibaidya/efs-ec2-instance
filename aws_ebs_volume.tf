@@ -38,6 +38,10 @@ resource "null_resource" "configure_nfs" {
       "sudo yum install nfs-utils -y -q ", # Amazon ami has pre installed nfs utils
       # Mounting Efs 
       "sudo mount -t nfs -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${aws_efs_file_system.efs.dns_name}:/  /var/www/html",
+      # Making Mount Permanent
+      "echo ${aws_efs_file_system.efs.dns_name}:/ /var/www/html nfs4 defaults,_netdev 0 0  | sudo cat >> /etc/fstab ",
+      "sudo chmod go+rw /var/www/html",
+      "sudo bash -c 'echo Welcome  > /var/www/html/index.html'",
     ]
   }
 }
