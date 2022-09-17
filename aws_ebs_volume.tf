@@ -16,16 +16,11 @@ resource "aws_efs_mount_target" "efs-mt" {
   security_groups = [aws_security_group.efs.id]
 }
 
-# Creating Mount target of EFS
-resource "aws_efs_mount_target" "mount" {
-  file_system_id  = aws_efs_file_system.efs.id
-  subnet_id       = aws_instance.testinstance.subnet_id
-  security_groups = [aws_security_group.ec2.id]
-}
+
 
 # Creating Mount Point for EFS
 resource "null_resource" "configure_nfs" {
-  depends_on = [aws_efs_mount_target.mount]
+  depends_on = [aws_efs_mount_target.efs-mt]
   connection {
     type        = "ssh"
     user        = "ec2-user"
