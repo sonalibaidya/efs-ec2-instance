@@ -16,16 +16,20 @@ resource "aws_efs_mount_target" "efs-mt" {
   security_groups = [aws_security_group.efs.id]
 }
 
-/* resource "aws_ebs_volume" "data-vol" {
-  availability_zone = "us-east-1a"
-  size              = 1
-  tags = {
-    Name = "data-volume"
-  }
+# Creating Mount target of EFS
+resource "aws_efs_mount_target" "mount" {
+  file_system_id  = aws_efs_file_system.efs.id
+  subnet_id       = aws_instance.testinstance.subnet_id
+  security_groups = [aws_security_group.ec2.id]
 }
 
-resource "aws_volume_attachment" "good-morning-vol" {
-  device_name = "/dev/sdc"
-  volume_id   = aws_ebs_volume.data-vol.id
-  instance_id = aws_instance.testinstance.id
-} */
+# Creating Mount Point for EFS
+resource "null_resource" "configure_nfs" {
+  depends_on = [aws_efs_mount_target.mount]
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    private_key = tls_private_key.my_key.private_key_pem
+    host        = aws_instance.testinstance.public_ip
+  }
+}
