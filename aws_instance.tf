@@ -6,7 +6,7 @@ resource "aws_instance" "good-morning" {
 
   availability_zone = "us-east-1"
 
-  security_groups = ["${aws_security_group.morning-ssh-http.name}"]
+  security_groups = [aws_security_group.morning-ssh-http.name]
 
   key_name = "zoomkey"
 
