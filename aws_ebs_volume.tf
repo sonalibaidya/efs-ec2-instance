@@ -17,7 +17,7 @@ resource "aws_efs_mount_target" "efs-mt" {
 }
 
 resource "aws_ebs_volume" "data-vol" {
-  availability_zone = "us-east-1"
+  availability_zone = "us-east-1a"
   size              = 1
   tags = {
     Name = "data-volume"
