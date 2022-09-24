@@ -42,6 +42,8 @@ resource "null_resource" "configure_nfs" {
       "sleep 5",
       "sudo yum install nfs-utils -y -q ", # Amazon ami has pre installed nfs utils
       "sleep 15",
+      "sudo service rpcbind restart",
+      "sleep 15",
       # Mounting Efs 
       "sudo mount -t nfs -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${aws_efs_file_system.efs.dns_name}:/  /var/www/html",
       "sleep 15",
