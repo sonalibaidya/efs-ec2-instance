@@ -7,5 +7,5 @@ variable "public_key" {
 variable "private_key" {
   type        = string
   description = "File path of private key."
-  default     = "~/.ssh/id_rsa.prv"
+  default     = "~/.ssh/id_rsa"
 }
