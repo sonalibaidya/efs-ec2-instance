@@ -47,7 +47,7 @@ resource "null_resources" "configure_nfs" {
       # Mounting Efs 
       "sudo mount -t nfs -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${aws_efs_file_system.efs.dns_name}:/  /var/www/html",
       "sleep 15",
-      "sudo chmod ec2-user.ec2-user go+rw /var/www/html",
+      "sudo chmod go+rw /var/www/html",
       "sudo bash -c 'echo Welcome  > /var/www/html/index.html'",
     ]
   }
