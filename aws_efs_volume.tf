@@ -19,7 +19,7 @@ resource "aws_efs_mount_target" "efs-mt" {
 
 
 # Creating Mount Point for EFS
-resource "Efs" "configure_nfs" {
+resource "aws_EFS" "configure_nfs" {
   depends_on = [aws_efs_mount_target.efs-mt]
   connection {
     type        = "ssh"
